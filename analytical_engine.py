@@ -4,16 +4,14 @@ class AnalyticalEngine:
     def __init__(self):
         self.store = {}  # Memory to store intermediate results
         self.intermediate_states = False  # Toggle to display computation steps
-        self.delay = 0.4  # Default delay in seconds for intermediate states
+        self.delay = 0.4  # Delay for intermediate states
 
     def set_intermediate_states(self, display):
-        """Enable or disable intermediate computation state display with default delay."""
         self.intermediate_states = display
         state = "enabled" if display else "disabled"
         print(f"Intermediate states are now {state}.")
 
     def mill(self, operation, *operands):
-        """Perform arithmetic operations."""
         if operation == "add":
             return sum(operands)
         elif operation == "subtract":
@@ -24,21 +22,17 @@ class AnalyticalEngine:
                 result *= op
             return result
         elif operation == "divide":
-            return operands[0] // operands[1]  # Integer division
-        else:
-            raise ValueError("Unsupported operation")
+            return operands[0] // operands[1]
 
     def factorial(self, n):
-        """Calculate factorial of n."""
         if n == 0 or n == 1:
             return 1
         if self.intermediate_states:
             print(f"Calculating factorial({n})")
-            time.sleep(self.delay)  # Add default delay between steps
+            time.sleep(self.delay)  # Add delay between steps
         return self.mill("multiply", n, self.factorial(n - 1))
 
     def fibonacci(self, n):
-        """Calculate nth Fibonacci number."""
         if n in self.store:
             return self.store[n]
         if n == 0:
@@ -47,13 +41,12 @@ class AnalyticalEngine:
             return 1
         if self.intermediate_states:
             print(f"Calculating Fibonacci({n})")
-            time.sleep(self.delay)  # Add default delay between steps
+            time.sleep(self.delay)  # Add delay between steps
         result = self.mill("add", self.fibonacci(n - 1), self.fibonacci(n - 2))
         self.store[n] = result
         return result
 
     def simulate(self):
-        """Interactive simulation."""
         print("Welcome to the Analytical Engine Simulator!")
         print("Choose a task:")
         print("1. Calculate Factorial")
@@ -77,7 +70,6 @@ class AnalyticalEngine:
             else:
                 print("Invalid choice. Please try again.")
 
-# Run the simulation
 if __name__ == "__main__":
     engine = AnalyticalEngine()
     engine.simulate()
